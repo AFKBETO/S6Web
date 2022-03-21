@@ -1,9 +1,11 @@
 header img#logo{
     display: block;
     margin: auto;
+    margin-top: 20px;
     width: 100px;
     height: 100px;
     border-style: solid;
     border-color: black;
     border-radius: 50px;
+    box-shadow: 4px 4px 2px gray;
 }

@@ -8,18 +8,30 @@
         <header>
             <img id="logo" src="./pepega.png">
         </header>
-        <form>
-            <label for="prenom">Prénom</label>
-            <input type="text" id="prenom" name="prenom" placeholder="Ajouter votre prénom">
-            <label for="nom">Nom</label>
-            <input type="text" id="nom" name="nom" placeholder="Ajouter votre nom">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Ajouter votre email">
-            <label for="role">Rôle</label>
-            <select id="role" name="role">
-                <option value="enseignant">Enseignant</option>
-                <option value="etudiant">Etudiant</option>
-            </select>
+        <form action="/action_page.php" method="get">
+            <div>
+                <label for="prenom">Prénom</label>
+                <input type="text" id="prenom" name="prenom" placeholder="Ajouter votre prénom">
+            </div>
+            <div>
+                <label for="nom">Nom</label>
+                <input type="text" id="nom" name="nom" placeholder="Ajouter votre nom">
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Ajouter votre email">
+            </div>
+            <div>
+                <label for="role">Rôle</label>
+                <select id="role" name="role">
+                    <option value="enseignant">Enseignant</option>
+                    <option value="etudiant">Etudiant</option>
+                </select>
+            </div>
+            <div>
+                <input type="submit" value="Ajouter">
+                <input type="reset" value="Supprimer">
+            </div>
         </form>
     </body>
 </html>

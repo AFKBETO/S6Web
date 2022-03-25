@@ -8,33 +8,33 @@
     <body>
         <header>
             <img id="logo" src="./pepega.png">
+            <form id="formulaire" action="/action_page.php" method="get">
+                <div id="champs">
+                    <div class="input">
+                        <label for="prenom">Prénom</label>
+                        <input type="text" id="prenom" name="prenom" placeholder="Ajouter votre prénom" required>
+                    </div>
+                    <div class="input">
+                        <label for="nom">Nom</label>
+                        <input type="text" id="nom" name="nom" placeholder="Ajouter votre nom" required>
+                    </div>
+                    <div class="input">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Ajouter votre email">
+                    </div>
+                    <div class="input">
+                        <label for="role">Rôle</label>
+                        <select id="role" name="role">
+                            <option value="enseignant">Enseignant</option>
+                            <option value="etudiant">Etudiant</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="boutons">
+                    <input id="bouton" type="submit" value="Ajouter">
+                    <input id="bouton" type="reset" value="Supprimer">
+                </div>
+            </form>
         </header>
-        <form id="formulaire" action="/action_page.php" method="get">
-            <div id="champs">
-                <div class="input">
-                    <label for="prenom">Prénom</label>
-                    <input type="text" id="prenom" name="prenom" placeholder="Ajouter votre prénom" required>
-                </div>
-                <div class="input">
-                    <label for="nom">Nom</label>
-                    <input type="text" id="nom" name="nom" placeholder="Ajouter votre nom" required>
-                </div>
-                <div class="input">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Ajouter votre email">
-                </div>
-                <div class="input">
-                    <label for="role">Rôle</label>
-                    <select id="role" name="role">
-                        <option value="enseignant">Enseignant</option>
-                        <option value="etudiant">Etudiant</option>
-                    </select>
-                </div>
-            </div>
-            <div id="boutons">
-                <input id="bouton" type="submit" value="Ajouter">
-                <input id="bouton" type="reset" value="Supprimer">
-            </div>
-        </form>
     </body>
 </html>

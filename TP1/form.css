@@ -20,6 +20,35 @@ form#formulaire{
     margin: auto;
     background-color: white;
     box-shadow: 6px 6px 3px gray;
-    width: fit-content;
+    width: auto;
+    max-width: 1000px;
     padding: 10px;
+    
+}
+
+div#champs{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+div.input{
+    flex-grow: 1;
+    padding: 2px;
+    margin: 2px;
+}
+
+div.input input, div.input select{
+    width: 100%;
+    border: none;
+    border-bottom: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: gray;
+}
+
+div#boutons{
+    margin-top: 20px;
+}
+
+div#boutons input{
+    margin: 10px;
 }

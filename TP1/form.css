@@ -85,3 +85,19 @@ input#bouton{
 input#bouton:hover{
     background-color: rgb(125,125,125);
 }
+
+main{
+    margin-top: 20px;
+}
+
+table#tableau {
+    border: 1px solid;
+    width: 100%;
+
+}
+
+table#tableau th, table#tableau td{
+    margin: 1px;
+    border: 1px solid;
+    width: 25%
+}

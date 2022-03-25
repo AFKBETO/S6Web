@@ -9,3 +9,7 @@ header img#logo{
     border-radius: 50px;
     box-shadow: 4px 4px 2px gray;
 }
+
+body {
+    background-color: rgb(200, 200, 200);
+}

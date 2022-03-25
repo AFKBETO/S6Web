@@ -1,3 +1,8 @@
+body {
+    background-color: rgb(200, 200, 200);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 header img#logo{
     display: block;
     margin: auto;
@@ -9,10 +14,6 @@ header img#logo{
     border-color: black;
     border-radius: 50px;
     box-shadow: 4px 4px 2px gray;
-}
-
-body {
-    background-color: rgb(200, 200, 200);
 }
 
 form#formulaire{
@@ -27,14 +28,23 @@ form#formulaire{
 }
 
 div#champs{
-    display: flex;
-    flex-flow: row wrap;
+    display: block;
 }
 
 div.input{
-    flex-grow: 1;
     padding: 2px;
     margin: 2px;
+}
+
+@media (min-width: 600px) {
+    div#champs{
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    div.input{
+        flex-grow: 1;
+    }
 }
 
 div.input input, div.input select{
@@ -43,6 +53,13 @@ div.input input, div.input select{
     border-bottom: 1px;
     border-bottom-style: solid;
     border-bottom-color: gray;
+    caret-color: auto;
+}
+
+div.input input:invalid, div.input select:invalid{
+    border-bottom-style: solid;
+    border-bottom-color: red;
+    caret-color: red;
 }
 
 div#boutons{
@@ -51,4 +68,20 @@ div#boutons{
 
 div#boutons input{
     margin: 10px;
+    background-color: rgb(150,150,150);
+    text-transform: uppercase;
+    border: none;
+    box-shadow: 4px 4px 2px gray;
+}
+
+input#bouton{
+    margin: 10px;
+    background-color: gray;
+    text-transform: uppercase;
+    border: none;
+    box-shadow: 4px 4px 2px gray;
+}
+
+input#bouton:hover{
+    background-color: rgb(125,125,125);
 }

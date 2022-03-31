@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div id="boutons">
-                        <input id="bouton_submit" type="submit" value="Ajouter" onclick="ajouter();" style="width:100px;">
+                        <input id="bouton_submit" type="submit" value="Ajouter" onclick="ajouter(); clickCounter();" style="width:100px;">
                         <input id="bouton_reset" type="reset" value="Tout Supprimer" onclick="toutSupprimer();">
                     </div>
                 </form>
@@ -54,33 +54,44 @@
             console.log(123);
 
             var timer = 10;
+            var clicks = 0;
             var disableFlag = false;
             var myInterval;
 
-            function activer_bouton(){
+            function clickCounter(){
+                clicks++;
+                console.log(clicks);
+                setTimeout(function(){clicks--;console.log(clicks)},2000);
+            }
+
+            function activerBouton(){
                 let bouton_submit = document.getElementById("bouton_submit");
+                let selectForm = document.getElementById("formulaire");
+                selectForm.style.display = "block";
                 bouton_submit.style.color = "black";
                 disableFlag = false;
                 bouton_submit.value = "AJOUTER";
             }
 
-            function desactiver_bouton(){
+            function desactiverBouton(){
                 let bouton_submit = document.getElementById("bouton_submit");
                 bouton_submit.style.color = "gray";
                 disableFlag = true;
                 myInterval = setInterval(counter,1000);
             }
 
+            
+
             function counter(){
                 if (timer <= 0) {
                     timer = 10;
                     clearInterval(myInterval);
-                    activer_bouton();
+                    activerBouton();
                 }
                 else{
                     timer--;
-                    let bouton_submit = document.getElementById("bouton_submit");
-                    bouton_submit.value = "ajouter(" + timer + ")";
+                    let boutonSubmit = document.getElementById("bouton_submit");
+                    boutonSubmit.value = "ajouter(" + timer + ")";
                 }
             }
 
@@ -108,10 +119,13 @@
                         newLine.appendChild(newCell);
                     }
                     tableau.appendChild(newLine);
-                    desactiver_bouton();
+                    desactiverBouton();
                 }
                 else{
-                    alert("Il faut attendre le compteur!");
+                    if (clicks >= 5){
+                        let selectForm = document.getElementById("formulaire");
+                        selectForm.style.display = "none";
+                    }
                 }
             }
 
@@ -123,7 +137,7 @@
                 }
 
             }
-            desactiver_bouton();
+            desactiverBouton();
         </script>
     </body>
 </html>

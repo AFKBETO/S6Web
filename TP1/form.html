@@ -32,8 +32,8 @@
                         </div>
                     </div>
                     <div id="boutons">
-                        <input id="bouton" type="submit" value="Ajouter" onclick="ajouter();">
-                        <input id="bouton" type="reset" value="Tout Supprimer" onclick="toutSupprimer();">
+                        <input id="bouton_submit" type="submit" value="Ajouter" onclick="ajouter();" style="width:100px;">
+                        <input id="bouton_reset" type="reset" value="Tout Supprimer" onclick="toutSupprimer();">
                     </div>
                 </form>
             </div>
@@ -53,29 +53,66 @@
         <script>
             console.log(123);
 
-            function ajouter(){
-                let selectForm = document.getElementById("formulaire");
-                let tableau = document.getElementById("tableau");
-                
-                let data = [];
-                let prenom = selectForm.prenom;
-                if(!prenom.checkValidity()){return;}
-                data.push(prenom.value);
-                let nom = selectForm.nom;
-                if(!nom.checkValidity()){return;}
-                data.push(nom.value);
-                let email = selectForm.email;
-                if(!email.checkValidity()){return;}
-                data.push(email.value);
-                data.push(selectForm.role.value);
+            var timer = 10;
+            var disableFlag = false;
+            var myInterval;
 
-                let newLine = document.createElement("tr");
-                for(let item of data){
-                    let newCell = document.createElement("td");
-                    newCell.textContent = item;
-                    newLine.appendChild(newCell);
+            function activer_bouton(){
+                let bouton_submit = document.getElementById("bouton_submit");
+                bouton_submit.style.color = "black";
+                disableFlag = false;
+                bouton_submit.value = "AJOUTER";
+            }
+
+            function desactiver_bouton(){
+                let bouton_submit = document.getElementById("bouton_submit");
+                bouton_submit.style.color = "gray";
+                disableFlag = true;
+                myInterval = setInterval(counter,1000);
+            }
+
+            function counter(){
+                if (timer <= 0) {
+                    timer = 10;
+                    clearInterval(myInterval);
+                    activer_bouton();
                 }
-                tableau.appendChild(newLine);
+                else{
+                    timer--;
+                    let bouton_submit = document.getElementById("bouton_submit");
+                    bouton_submit.value = "ajouter(" + timer + ")";
+                }
+            }
+
+            function ajouter(){
+                if (!disableFlag){
+                    let selectForm = document.getElementById("formulaire");
+                    let tableau = document.getElementById("tableau");
+                    
+                    let data = [];
+                    let prenom = selectForm.prenom;
+                    if(!prenom.checkValidity()){return;}
+                    data.push(prenom.value);
+                    let nom = selectForm.nom;
+                    if(!nom.checkValidity()){return;}
+                    data.push(nom.value);
+                    let email = selectForm.email;
+                    if(!email.checkValidity()){return;}
+                    data.push(email.value);
+                    data.push(selectForm.role.value);
+
+                    let newLine = document.createElement("tr");
+                    for(let item of data){
+                        let newCell = document.createElement("td");
+                        newCell.textContent = item;
+                        newLine.appendChild(newCell);
+                    }
+                    tableau.appendChild(newLine);
+                    desactiver_bouton();
+                }
+                else{
+                    alert("Il faut attendre le compteur!");
+                }
             }
 
             function toutSupprimer(){
@@ -86,6 +123,7 @@
                 }
 
             }
+            desactiver_bouton();
         </script>
     </body>
 </html>

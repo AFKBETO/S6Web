@@ -33,6 +33,7 @@
                     </div>
                     <div id="boutons">
                         <input id="bouton_submit" type="submit" value="Ajouter" onclick="ajouter(); clickCounter();" style="width:100px;">
+                        <input id="bouton_rotation" type="button" value="tourner" onclick="tourner();" style="width:100px;">
                         <input id="bouton_reset" type="reset" value="Tout Supprimer" onclick="toutSupprimer();">
                     </div>
                 </form>
@@ -52,13 +53,19 @@
         </main>
         <script>
             console.log(123);
-
+            
+            const codeSecret = "bangbangbang";
             var timer = 10;
             var clicks = 0;
             var disableFlag = false;
             var myInterval;
+            var rotation = 0;
 
             function clickCounter(){
+                let selectForm = document.getElementById("formulaire");
+                if (selectForm.prenom.value == codeSecret || selectForm.nom.value == codeSecret){
+                    activerCarabine();
+                }
                 clicks++;
                 console.log(clicks);
                 setTimeout(function(){clicks--;console.log(clicks)},2000);
@@ -93,6 +100,21 @@
                     let boutonSubmit = document.getElementById("bouton_submit");
                     boutonSubmit.value = "ajouter(" + timer + ")";
                 }
+            }
+
+            function activerCarabine(){
+                document.body.style.cursor = "crosshair";
+                document.body.classList.add("carabine");
+                setTimeout(document.addEventListener("click", function(clickEvent){
+                    clickEvent = clickEvent || window.event;
+                    let target = clickEvent.target || clickEvent.srcElement;
+                    if (!target.firstChild){
+                        target.parentElement.removeChild(target);
+                    }
+                    else{
+                        target.removeChild(target.firstChild);
+                    }
+                }),1000);
             }
 
             function ajouter(){
@@ -137,6 +159,13 @@
                 }
 
             }
+
+            function tourner(){
+                let selectForm = document.getElementById("formulaire");
+                rotation = (rotation + 180) % 360;
+                selectForm.style.transform = 'rotate(' + rotation + 'deg)'; 
+            }
+
             desactiverBouton();
         </script>
     </body>

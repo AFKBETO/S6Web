@@ -3,6 +3,10 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+body.carabine * {
+    cursor: inherit !important;
+}
+
 header {
     display: block;
     background-color: rgb(200, 200, 200);
@@ -33,7 +37,7 @@ form#formulaire{
     width: auto;
     max-width: 1000px;
     padding: 10px;
-    
+    transition: all 1s ease-in-out;
 }
 
 div#champs{

@@ -10,15 +10,49 @@
             <h1>Notre âge est {{age}}</h1>
             <p>L'année courante est {{annee}}</p>
         </div>
+        <div id="vm2">
+            <p :style="isWhite ? styleWhite : styleBlack">{{myText}}</p>
+            <button v-on:click="inverser">Changer la couleur</button>
+        </div>
         <script>
             var date = new Date();
             var app = new Vue({
-                el: '#app',
+                el: "#app",
                 data:{
                     groupe: 'F',
-                    age: '21',
+                    age: 21,
                     annee: date.getFullYear()
                 }
+            });
+            var vm2 = new Vue({
+                el: '#vm2',
+                data: {
+                    isWhite: false,
+                    styleWhite: {
+                        background: 'black',
+                        color: "white"
+                    },
+                    styleBlack: {
+                        background: 'white',
+                        color: "black"
+                    }                    
+                },
+                computed: {
+                    myText(){
+                        if (this.isWhite) {
+                            return "Blanc";
+                        }
+                        else {
+                            return "Noir";
+                        }
+                    }
+                },
+                methods: {
+                    inverser: function() {
+                        this.isWhite = !this.isWhite
+                    }
+                }
+                
             });
         </script>
     </body>

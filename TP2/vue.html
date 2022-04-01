@@ -6,17 +6,17 @@
     </head>
     <body>
         <div id="app">
-            <h1>Bonjour, nous sommes dans le groupe {{groupe}}</h1>
-            <h1>Notre âge est {{age}}</h1>
-            <p>L'année courante est {{annee}}</p>
+            <h1>Bonjour, nous sommes dans le groupe {{ groupe }}</h1>
+            <h1>Notre âge est {{ age }}</h1>
+            <p>L'année courante est {{ annee }}</p>
         </div>
         <div id="vm2">
-            <p :style="isWhite ? styleWhite : styleBlack">{{myText}}</p>
+            <p :style="isWhite ? styleWhite : styleBlack">{{ myText }}</p>
             <button v-on:click="inverser">Changer la couleur</button>
         </div>
         <div id="tableau">
-            <tab :etudiants="tab" groupe="A"></tab>
-            <tab :etudiants="tab" groupe="B"></tab>
+            <button v-on:click="changer">Afficher groupe {{ autreGroupe }}</button>
+            <tab :etudiants="tab" :groupe="groupe"></tab>
         </div>
         <script>
             var date = new Date();
@@ -71,9 +71,9 @@
                             <th>Note</th>
                         </tr>
                         <tr v-for="(etudiant, index) in etudiants" :key="index" v-if="etudiant.groupe == groupe">
-                            <td>{{index}}</td>
-                            <td>{{etudiant.nom}}</td>
-                            <td>{{etudiant.note}}</td>
+                            <td>{{ index }}</td>
+                            <td>{{ etudiant.nom }}</td>
+                            <td>{{ etudiant.note }}</td>
                         </tr>
                     </table>
                 `
@@ -87,7 +87,16 @@
                         {nom : "Aubin", note : 8, groupe : "B"},
                         {nom : "François", note : 14, groupe : "B"},
                         {nom : "Martin", note : 9, groupe : "A"}
-                    ]
+                    ],
+                    groupe: "A",
+                    autreGroupe: "B"
+                },
+                methods: {
+                    changer() {
+                        let placeholder = this.autreGroupe;
+                        this.autreGroupe = this.groupe;
+                        this.groupe = placeholder;
+                    }
                 }
             });
         </script>

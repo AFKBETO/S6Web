@@ -14,6 +14,10 @@
             <p :style="isWhite ? styleWhite : styleBlack">{{myText}}</p>
             <button v-on:click="inverser">Changer la couleur</button>
         </div>
+        <div id="tableau">
+            <tab :etudiants="tab" groupe="A"></tab>
+            <tab :etudiants="tab" groupe="B"></tab>
+        </div>
         <script>
             var date = new Date();
             var app = new Vue({
@@ -25,16 +29,16 @@
                 }
             });
             var vm2 = new Vue({
-                el: '#vm2',
+                el: "#vm2",
                 data: {
                     isWhite: false,
                     styleWhite: {
-                        background: 'black',
-                        color: "white"
+                        background: "white",
+                        color: "black"
                     },
                     styleBlack: {
-                        background: 'white',
-                        color: "black"
+                        background: "black",
+                        color: "white"
                     }                    
                 },
                 computed: {
@@ -48,11 +52,43 @@
                     }
                 },
                 methods: {
-                    inverser: function() {
+                    inverser() {
                         this.isWhite = !this.isWhite
                     }
                 }
                 
+            });
+            Vue.component('tab', {
+                props: {
+                    etudiants : Array,
+                    groupe: String
+                },
+                template: `
+                    <table class="tableau">
+                        <tr>
+                            <th>Id étudiant</th>
+                            <th>Nom</th>
+                            <th>Note</th>
+                        </tr>
+                        <tr v-for="(etudiant, index) in etudiants" :key="index" v-if="etudiant.groupe == groupe">
+                            <td>{{index}}</td>
+                            <td>{{etudiant.nom}}</td>
+                            <td>{{etudiant.note}}</td>
+                        </tr>
+                    </table>
+                `
+            });
+
+            var tab = new Vue({
+                el: "#tableau",
+                data: {
+                    tab: [
+                        {nom : "Dupont", note : 12, groupe: "A"},
+                        {nom : "Aubin", note : 8, groupe : "B"},
+                        {nom : "François", note : 14, groupe : "B"},
+                        {nom : "Martin", note : 9, groupe : "A"}
+                    ]
+                }
             });
         </script>
     </body>

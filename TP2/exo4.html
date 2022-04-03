@@ -5,6 +5,59 @@
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     </head>
     <body>
-        
+        <div id="vm1">
+            <formulaire></formulaire>
+            <liste :list="cours" @cour-envoye="ajouterCour"></liste>
+        </div>
+
+        <script>
+            Vue.component('formulaire', {
+                template: `
+                    <form class="formulaire" @submit.prevent="onSubmit">
+                        <input v-model="cour">
+                        <input type="submit" value="Modifier">
+                    </form>
+                `,
+                data() {
+                    return {
+                        cour: null
+                    }
+                },
+                methods:{
+                    onSubmit(){
+                        let cour = this.cour;
+                        this.$emit("cour-envoye", cour);
+                        this.cour = null;
+                    }
+                }
+            });
+            Vue.component('liste', {
+                props: {
+                    list: Array
+                },
+                template: `
+                    <ul>
+                        <li v-for="(cour, index) in list" :key="index">{{ cour }}</li>
+                    </ul>
+                `,
+                methods: {
+                    ajouterCour(cour){
+                        props.list.append(cour);
+                    }
+                }
+            });
+            var vm1 = new Vue({
+                el: "#vm1",
+                data: {
+                    cours: [
+                        'Algorithmique',
+                        'Structures de données',
+                        'Programmation Web',
+                        'Programmation Web Avancé',
+                        'Base de données'
+                    ]
+                }
+            });
+        </script>
     </body>
 </html>

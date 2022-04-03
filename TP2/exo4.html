@@ -6,17 +6,52 @@
     </head>
     <body>
         <div id="vm1">
-            <formulaire></formulaire>
-            <liste :list="cours" @cour-envoye="ajouterCour"></liste>
+            <formulaire :array-cour="cours"
+                @send-signal="ajouterCour"
+                @select-change="choisirCour"
+                @delete-signal="supprimerCour"></formulaire>
         </div>
 
         <script>
-            Vue.component('formulaire', {
+            Vue.component('drop-down', {
+                props: {
+                    liste: Array
+                },
                 template: `
-                    <form class="formulaire" @submit.prevent="onSubmit">
-                        <input v-model="cour">
-                        <input type="submit" value="Modifier">
-                    </form>
+                    <select id="cours" v-model="currentSelection" @change="onChange">
+                        <option v-for="(cour, index) in liste" :key="index">{{ cour }}</option>
+                    </select>
+                `,
+                data() {
+                    return {
+                        currentSelection: null
+                    }
+                },
+                methods: {
+                    onChange(){
+                        this.$emit("select-change", this.currentSelection)
+                    }
+                }
+            });
+            Vue.component('formulaire', {
+                props: {
+                    arrayCour: Array
+                },
+                template: `
+                    <div id="form">
+                        <form class="formulaire" @submit.prevent="onSubmit">
+                            <input v-model="cour">
+                            <input type="submit" value="Modifier">
+                            <br>
+                            <drop-down :liste="arrayCour" @select-change="choisirCour"></drop-down>
+                        </form>
+                        <ul>
+                            <li v-for="(cour, index) in arrayCour" :key="index">
+                                <input type="button" value="X" @click="supprimer(index)"></input>
+                                {{ cour }}
+                            </li>
+                        </ul>
+                    </div>
                 `,
                 data() {
                     return {
@@ -25,24 +60,16 @@
                 },
                 methods:{
                     onSubmit(){
-                        let cour = this.cour;
-                        this.$emit("cour-envoye", cour);
-                        this.cour = null;
-                    }
-                }
-            });
-            Vue.component('liste', {
-                props: {
-                    list: Array
-                },
-                template: `
-                    <ul>
-                        <li v-for="(cour, index) in list" :key="index">{{ cour }}</li>
-                    </ul>
-                `,
-                methods: {
-                    ajouterCour(cour){
-                        props.list.append(cour);
+                        let data = this.cour
+                        this.$emit("send-signal", data)
+                        this.cour = null
+                    },
+                    choisirCour(currentSelection){
+                        this.$emit("select-change", currentSelection)
+                        this.cour = currentSelection
+                    },
+                    supprimer(key){
+                        this.$emit("delete-signal", key)
                     }
                 }
             });
@@ -55,7 +82,28 @@
                         'Programmation Web',
                         'Programmation Web Avancé',
                         'Base de données'
-                    ]
+                    ],
+                    courCourant: null
+                },
+                methods: {
+                    ajouterCour(data){
+                        if (this.courCourant) {
+                            this.cours[this.cours.findIndex(this.checkTexte)] = data
+                            this.courCourant = null
+                        }
+                        else if (!this.cours.includes(data) && data){
+                            this.cours.push(data)
+                        }
+                    },
+                    choisirCour(cour){
+                        this.courCourant = cour
+                    },
+                    checkTexte(cour){
+                        return cour == this.courCourant
+                    },
+                    supprimerCour(key){
+                        this.cours.splice(key,1)
+                    }
                 }
             });
         </script>

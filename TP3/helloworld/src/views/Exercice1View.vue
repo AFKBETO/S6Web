@@ -1,8 +1,14 @@
 <template>
   <div class="exo1">
     <h1>Exercice 1</h1>
-    <TodoList :taches="taches" @etat-change="changer"/>
     <AjouterTache @ajouter-tache="ajouter" />
+    <TodoList :taches="taches" @etat-change="changer"/>
+    <table>
+      <tr>
+        <td>Tâches effectuées : {{tachesEffectuees}}</td>
+        <td>Tâches non-effectuées : {{taches.length - tachesEffectuees}}</td>
+      </tr>
+    </table>
   </div>
 </template>
 <script>
@@ -42,6 +48,17 @@ export default {
           break
         }
       }
+    }
+  },
+  computed: {
+    tachesEffectuees(){
+      let res = 0
+      for (let tache of this.taches) {
+        if (tache.termine) {
+          res++
+        }
+      }
+      return res
     }
   }
 }

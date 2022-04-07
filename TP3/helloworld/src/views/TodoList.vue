@@ -1,6 +1,7 @@
 <template>
     <div>
-        Liste des taches
+        <br>
+        <h2>Liste des tâches</h2>
         <table style="margin: auto">
             <tr>
                 <th>Titre</th>

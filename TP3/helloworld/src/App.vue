@@ -3,7 +3,7 @@
     <router-link to="/ex1">Exercice 1</router-link> |
     <router-link to="/ex2">Exercice 2</router-link>
   </nav>
-  <router-view/>
+  <router-view />
 </template>
 
 <style>

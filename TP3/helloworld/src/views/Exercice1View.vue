@@ -36,7 +36,7 @@ export default {
       this.taches.push(tache)
     },
     changer(titre){
-      for (tache of this.taches) {
+      for (let tache of this.taches) {
         if (tache.titre == titre) {
           tache.termine = !tache.termine
           break

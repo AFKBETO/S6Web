@@ -1,7 +1,7 @@
 <template>
   <div class="exo1">
     <h1>Exercice 1</h1>
-    <TodoList :taches="taches" />
+    <TodoList :taches="taches" @etat-change="changer"/>
     <AjouterTache @ajouter-tache="ajouter" />
   </div>
 </template>
@@ -34,6 +34,14 @@ export default {
   methods: {
     ajouter(tache){
       this.taches.push(tache)
+    },
+    changer(titre){
+      for (tache of this.taches) {
+        if (tache.titre == titre) {
+          tache.termine = !tache.termine
+          break
+        }
+      }
     }
   }
 }

@@ -11,7 +11,7 @@
                 <td>{{tache.titre}}</td>
                 <td>{{tache.description}}</td>
                 <td v-if="tache.termine" style="color:green" @click.prevent="changer"> &#10004; </td>
-                <td v-else style="color:red" @click.prevent="changer"> X </td>
+                <td v-else style="color:red" @click.prevent="changer(tache.titre)"> X </td>
             </tr>
         </table>
     </div>

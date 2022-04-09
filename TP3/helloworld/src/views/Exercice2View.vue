@@ -1,17 +1,20 @@
 <template>
   <div class="exo2">
     <h1>Exercice 2</h1>
+    <FormEtudiant @ajouter-etudiant="addEtudiant" />
     <nav>
-      <router-link to="/ex2/grA" :etudiants="etudiants">Groupe A</router-link> | 
-      <router-link to="/ex2/grB" :etudiants="etudiants">Groupe B</router-link> | 
-      <router-link to="/ex2/grAB" :etudiants="etudiants">Tous</router-link>
+      <router-link to="/ex2/grA">Groupe A</router-link> | 
+      <router-link to="/ex2/grB">Groupe B</router-link> | 
+      <router-link to="/ex2/grAB">Tous</router-link>
     </nav>
-    <router-view />
+    <router-view :liste="etudiants" />
   </div>
   
 </template>
 
 <script>
+import FormEtudiant from './FormEtudiant.vue'
+
 export default {
   data() {
     return {
@@ -28,6 +31,9 @@ export default {
         }
       ]
     }
+  },
+  components: {
+    FormEtudiant
   },
   computed: {
     getGroupeA(){
@@ -47,6 +53,11 @@ export default {
         }
       }
       return result
+    }
+  },
+  methods: {
+    addEtudiant(etudiant) {
+      this.etudiants.push(etudiant)
     }
   }
 }

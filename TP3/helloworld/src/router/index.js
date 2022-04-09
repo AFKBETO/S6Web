@@ -15,11 +15,8 @@ const routes = [
     component: Exercice2View,
     children: [
       {
-        path: ':groupname',
-        component: GroupeView,
-        props: {
-          liste: (route) => ({query: route.query.liste})
-        }
+        path: ':groupname', // un template pour tout les views des groupes
+        component: GroupeView
       },
     ],
     // route level code-splitting

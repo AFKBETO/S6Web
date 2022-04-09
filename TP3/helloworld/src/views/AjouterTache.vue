@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>To-do List</h2>
-        <form>
+        <form @submit.prevent="ajouter">
             <div>
                 <label for="titre">Titre</label><br>
                 <input id="titre" type="text" v-model="titre" placeholder="Saisir le titre" required>
@@ -14,7 +14,7 @@
                 <label for="termine">Tâche déjà réalisée ?</label><br>
                 <input id="termine" type="checkbox" v-model="termine">
             </div>
-            <button @click.prevent="ajouter">Ajouter</button>
+            <button type="submit">Ajouter</button>
         </form>
     </div>
 </template>
@@ -30,7 +30,7 @@ export default {
         }
     },
     methods:{
-        ajouter(){
+        ajouter(){ // envoyer le formulaire au composant parent
             if (this.titre.length > 0) {
                 this.$emit('ajouter-tache', {
                     titre: this.titre,

@@ -38,10 +38,10 @@ export default {
     }
   },
   methods: {
-    ajouter(tache){
+    ajouter(tache){ // ajouter les données envoyées par le formulaire dans la liste des tâches
       this.taches.push(tache)
     },
-    changer(titre){
+    changer(titre){ // changer l'état de tâche quand il reçoit l'évenement etat-change
       for (let tache of this.taches) {
         if (tache.titre == titre) {
           tache.termine = !tache.termine

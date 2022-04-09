@@ -30,7 +30,7 @@ export default {
         }
     },
     computed: {
-        getListe(){
+        getListe(){ // retourne une liste des étudiants appartenant d'un groupe
             let result = []
             for(let element of this.liste){
                 if(this.$route.params.groupname == 'grA' && !element.groupeA) {

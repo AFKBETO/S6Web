@@ -29,7 +29,7 @@ export default {
         }
     },
     methods: {
-        changer(titre) {
+        changer(titre) { // envoyer au composant parent le titre de la tâche appuyée
             this.$emit('etat-change', titre)
         }
     }

@@ -35,27 +35,7 @@ export default {
   components: {
     FormEtudiant
   },
-  computed: {
-    getGroupeA(){
-      let result = []
-      for (let etudiant of this.etudiants) {
-        if (etudiant.groupeA) {
-          result.push(etudiant)
-        }
-      }
-      return result
-    },
-    getGroupeB(){
-      let result = []
-      for (let etudiant of this.etudiants) {
-        if (!etudiant.groupeA) {
-          result.push(etudiant)
-        }
-      }
-      return result
-    }
-  },
-  methods: {
+  methods: { // ajouter les données de l'étudiant envoyées par le formulaire
     addEtudiant(etudiant) {
       this.etudiants.push(etudiant)
     }

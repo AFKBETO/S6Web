@@ -16,7 +16,7 @@
             </tr>
         </table>
     </div>
-</template>c
+</template>
 <script>
 export default {
     name: 'TodoList',

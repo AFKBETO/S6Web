@@ -5,7 +5,7 @@
             <input id="nom" type="text" v-model="nom" placeholder="Saisir le nom d'étudiant" required>
         </div>
         <div>
-            <label for="groupeA">Groupe A ?</label><br>
+            <label for="groupeA">Groupe</label><br>
             <select id="groupe" v-model="groupeA">
                 <option value="grA" selected="selected">Groupe A</option>
                 <option value="grB">Groupe B</option>

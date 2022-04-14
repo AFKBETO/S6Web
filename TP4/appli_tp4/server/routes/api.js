@@ -86,6 +86,10 @@ router.post('/panier/pay', (req, res) => {
     res.status(400).json({ message: 'Please add firstname.' })
     return
   }
+  if(req.session.panier.articles.length == 0) {
+    res.status(400).json({ message: 'Cart is empty.' })
+    return
+  }
   req.session.destroy()
   res.status(200).json({ message: `Merci ${user.firstname} ${user.surname} pour votre achat!` })
 })

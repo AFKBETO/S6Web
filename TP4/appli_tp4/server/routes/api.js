@@ -61,7 +61,7 @@ router.post('/panier', (req, res) => {
       id : articleId,
       quantity : quantity
     })
-    res.status(200).json(req.session.panier)
+    res.status(201).json(req.session.panier)
     return
   }
   
@@ -91,7 +91,7 @@ router.post('/panier/pay', (req, res) => {
     return
   }
   req.session.destroy()
-  res.status(200).json({ message: `Merci ${user.firstname} ${user.surname} pour votre achat!` })
+  res.status(200).json({ message: `Thank you, ${user.firstname} ${user.surname} for your purchase!` })
 })
 
 /*
@@ -110,7 +110,7 @@ router.put('/panier/:articleId', (req, res) => {
     return
   }
   article.quantity = quantity
-  res.status(200).json(req.session.panier)
+  res.status(201).json(req.session.panier)
 })
 
 /*

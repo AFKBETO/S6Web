@@ -32,7 +32,7 @@
 </template>
 
 <script>
-const AddArticle = window.httpVueLoader('./AddArticle.vue');
+const AddArticle = window.httpVueLoader('./components/AddArticle.vue');
 
 module.exports = {
   props: {
@@ -50,7 +50,7 @@ module.exports = {
       }
     }
   },
-  component: {
+  components: {
     AddArticle
   },
   methods: {

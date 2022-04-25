@@ -175,7 +175,7 @@ router.post('/article', (req, res) => {
     if (err) throw err;
     db.query(`SELECT * FROM bdweb_tp5.articles ORDER BY id_article DESC LIMIT 1;`, (err, result) => {
       if (err) throw err;
-      res.json(result)
+      res.json(result[0])
     })
   })
 
@@ -200,7 +200,7 @@ function parseArticle (req, res, next) {
   }
   // on affecte req.articleId pour l'exploiter dans toutes les routes qui en ont besoin
   req.articleId = articleId
-
+  
   const article = articles.find(a => a.id === req.articleId)
   if (!article) {
     res.status(404).json({ message: 'article ' + articleId + ' does not exist' })

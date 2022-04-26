@@ -31,6 +31,13 @@ class Panier {
  * De même, les informations sont réinitialisées à chaque redémarrage du serveur, car nous n'avons pas de système de base de données pour faire persister les données
  */
 
+/*GET login*/
+
+router.get('/login', (req, res) =>{
+  db.query(`SELECT id_article FROM bdweb_tp5.articles ` +
+  `WHERE user`)
+})
+
 /**
  * Notre mécanisme de sauvegarde des paniers des utilisateurs sera de simplement leur attribuer un panier grâce à req.session, sans authentification particulière
  */
@@ -143,7 +150,8 @@ router.delete('/panier/:articleId', (req, res) => {
  * Cette route envoie l'intégralité des articles du site
  */
 router.get('/articles', (req, res) => {
-  db.query(`SELECT id_article as id, name, description, image, price FROM bdweb_tp5.articles`, function(err, result){
+  db.query(`SELECT id_article as id, name, description, image, price ` +
+  `FROM bdweb_tp5.articles`, function(err, result){
     if (err) throw err;
     var articles = result
     res.json(articles)
@@ -201,6 +209,18 @@ function parseArticle (req, res, next) {
   // on affecte req.articleId pour l'exploiter dans toutes les routes qui en ont besoin
   req.articleId = articleId
   
+  db.query(`SELECT * FROM bdweb_tp5.articles WHERE id_article = ${articleId}`,
+  (err, result) => {
+    if (err) throw err
+    if (result.length == 0) {
+      res.status(404).json({ message: 'article ' + articleId + ' does not exist' })  
+      return
+    }
+    // on affecte req.article pour l'exploiter dans toutes les routes qui en ont besoin
+    req.article = result[0]
+    next()
+  })
+  /*
   const article = articles.find(a => a.id === req.articleId)
   if (!article) {
     res.status(404).json({ message: 'article ' + articleId + ' does not exist' })
@@ -209,6 +229,7 @@ function parseArticle (req, res, next) {
   // on affecte req.article pour l'exploiter dans toutes les routes qui en ont besoin
   req.article = article
   next()
+  */
 }
 
 router.route('/article/:articleId')
@@ -231,18 +252,31 @@ router.route('/article/:articleId')
     const description = req.body.description
     const image = req.body.image
     const price = parseInt(req.body.price)
-
+    
     req.article.name = name
     req.article.description = description
     req.article.image = image
     req.article.price = price
+    
+    db.query(`UPDATE bdweb_tp5.articles SET ` +
+    `name = "${name}", ` +
+    `description = "${description}", ` +
+    `image = "${image}", ` +
+    `price = ${price} ` +
+    `WHERE id_article = ${req.articleId};`
+    )
     res.send()
   })
 
   .delete(parseArticle, (req, res) => {
+    /*
     const index = articles.findIndex(a => a.id === req.articleId)
 
-    articles.splice(index, 1) // remove the article from the array
+    articles.splice(index, 1) // remove the article from the array*/
+    db.query(`DELETE FROM bdweb_tp5.articles WHERE id_article = ${req.articleId}`,
+    (err, result) => {
+      if (err) throw err
+    })
     res.send()
   })
 

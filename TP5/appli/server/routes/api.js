@@ -45,6 +45,24 @@ router.get('/login', (req, res) =>{
   })
 })
 
+/*POST login*/
+router.post('/login', (req, res) =>{
+  const email = req.body.email
+  const password = req.body.password
+
+  db.query(`SELECT id_user FROM bdweb_tp5.users WHERE email="${email}" ` +
+    `AND password="${password}"`, (err, result) => {
+    if (err) throw err
+    if (result.length == 0) {
+      res.status(404).json(false)
+    }
+    if (result.length > 0) {
+      req.session.userId = result[0].id_user
+      res.status(200).json(true)
+    }
+  })
+})
+
 /**
  * Notre mécanisme de sauvegarde des paniers des utilisateurs sera de simplement leur attribuer un panier grâce à req.session, sans authentification particulière
  */

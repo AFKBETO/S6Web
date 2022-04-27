@@ -57,16 +57,10 @@ var app = new Vue({
     },
     async authenticate (loginDetails){
       try {
-        await axios.get(`/api/login/?email=${loginDetails.email}`).then(res => {
+        await axios.post(`/api/login`, loginDetails).then(res => {
           if (res.data) {
-            if (res.data.password == loginDetails.password) {
-              this.$router.push('/home')
-              this.login = true
-            }
-            if (res.data.password != loginDetails.password) {
-              throw err
-            }
-              
+            this.$router.push('/home')
+            this.login = true
           }
           if (!res.data){
             throw err

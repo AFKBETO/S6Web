@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="login">
     <h2>Mon Panier</h2>
     <!-- TODO -->
   </div>
@@ -9,7 +9,8 @@
 module.exports = {
   props: {
     articles: { type: Array, default: [] },
-    panier: { type: Object }
+    panier: { type: Object },
+    login: { type: Boolean}
   },
   data () {
     return {

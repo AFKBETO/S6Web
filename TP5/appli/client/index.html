@@ -13,8 +13,8 @@
         <div id="app">
           <header>
             <h1>À la bonne franquette</h1>
-            <nav>
-              <router-link to='/'>Accueil</router-link>
+            <nav v-if="login">
+              <router-link to='/home'>Accueil</router-link>
               <router-link to='/panier'>Panier</router-link>
             </nav>
           </header>
@@ -22,9 +22,12 @@
             <router-view
               :articles="articles"
               :panier="panier"
+              :login="login"
+              :error="error"
               @add-article="addArticle"
               @delete-article="deleteArticle"
               @update-article="updateArticle"
+              @login-user="authenticate"
             ></router-view>
           </main>
         </div>

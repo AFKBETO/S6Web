@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-
 const mysql = require('mysql')
 
 const db = mysql.createConnection({
@@ -34,8 +33,16 @@ class Panier {
 /*GET login*/
 
 router.get('/login', (req, res) =>{
-  db.query(`SELECT id_article FROM bdweb_tp5.articles ` +
-  `WHERE user`)
+  const email = req.query.email
+  
+  db.query(`SELECT * FROM bdweb_tp5.users WHERE email="${email}";`, (err, result) => {
+    if (result.length == 0) {
+      res.status(404).json("Email not found")
+    }
+    if (result.length > 0) {
+      res.status(200).json(result[0])
+    }
+  })
 })
 
 /**

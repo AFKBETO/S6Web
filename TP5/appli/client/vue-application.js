@@ -1,9 +1,11 @@
+const Login = window.httpVueLoader('./components/Login.vue')
 const Home = window.httpVueLoader('./components/Home.vue')
 const Panier = window.httpVueLoader('./components/Panier.vue')
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/panier', component: Panier },
+  { path: '/', component: Login},
+  { path: '/home', component: Home},
+  { path: '/panier', component: Panier}
 ]
 
 const router = new VueRouter({
@@ -19,15 +21,23 @@ var app = new Vue({
       createdAt: null,
       updatedAt: null,
       articles: []
-    }
+    },
+    login: false,
+    error: false
   },
-  async mounted () {
-    const res = await axios.get('/api/articles')
-    this.articles = res.data
-    // const res2 = await axios.get('/api/panier')
-    // this.panier = res2.data
+  components: {
+    Login,
+  },
+  async mounted(){
+    return
   },
   methods: {
+    async load () {
+      const res = await axios.get('/api/articles')
+      this.articles = res.data
+      // const res2 = await axios.get('/api/panier')
+      // this.panier = res2.data
+    },
     async addArticle (article) {
       const res = await axios.post('/api/article', article)
       this.articles.push(res.data)
@@ -44,6 +54,29 @@ var app = new Vue({
       await axios.delete('/api/article/' + articleId)
       const index = this.articles.findIndex(a => a.id === articleId)
       this.articles.splice(index, 1)
+    },
+    async authenticate (loginDetails){
+      try {
+        await axios.get(`/api/login/?email=${loginDetails.email}`).then(res => {
+          if (res.data) {
+            if (res.data.password == loginDetails.password) {
+              this.$router.push('/home')
+              this.login = true
+            }
+            if (res.data.password != loginDetails.password) {
+              throw err
+            }
+              
+          }
+          if (!res.data){
+            throw err
+          }
+        })
+      }
+      catch (err) {
+        this.error = true
+        setTimeout(() => {this.error = false},2000)
+      }
     }
   }
 })

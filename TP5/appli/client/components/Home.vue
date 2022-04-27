@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="login">
     <article v-for="article in articles" :key="article.id">
       <div class="article-img">
         <div :style="{ backgroundImage: 'url(' + article.image + ')' }">
@@ -37,7 +37,8 @@ const AddArticle = window.httpVueLoader('./components/AddArticle.vue');
 module.exports = {
   props: {
     articles: { type: Array, default: [] },
-    panier: { type: Object }
+    panier: { type: Object },
+    login: { type: Boolean}
   },
   data () {
     return {
